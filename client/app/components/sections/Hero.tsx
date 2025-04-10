@@ -3,21 +3,13 @@
 import Image from "next/image";
 import { motion } from "motion/react";
 import { cn } from "@/lib/utils";
-import { useEffect, useState } from "react";
-import handleGithubAuth from "@/lib/api/github";
-import handleLinkedInAuth from "@/lib/api/linkedin";
-import { githubAuth, loginWithGithub } from "@/lib/auth";
+import { useState } from "react";
+import GithubAuthButton from "../ui/GithubAuthButton";
+import LinkedInAuthButton from "../ui/LinkedInAuthButton";
  
 export function Hero() {
   const [isGithub, setGithub] = useState();
   const [isLinkedIn, setLinkedIn] = useState();
-
-  useEffect(() => {
-    const queryString = window.location.search;
-    const urlParams = new URLSearchParams(queryString);
-    const codeParam = urlParams.get("code");
-    console.log(codeParam);
-  }, [])
 
   return (
     <div className="relative mx-auto flex flex-col items-center justify-center">
@@ -82,22 +74,8 @@ export function Hero() {
             }}
             className="relative z-10 mt-8 flex flex-wrap items-center justify-center gap-4"
           >
-            <button 
-              onClick={() => {
-                githubAuth();
-              }}
-              className="w-60 transform rounded-lg bg-[#212830] px-6 py-2 font-medium text-white transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#29323d] dark:bg-white dark:text-black dark:hover:bg-gray-200"
-            >
-              Github
-            </button>
-            <button
-              onClick={() => {
-                console.log(handleLinkedInAuth("shawnn24"));
-              }}
-              className="w-60 transform rounded-lg border border-gray-300 bg-[#0077B5] px-6 py-2 font-medium text-black transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#0085cc] dark:border-gray-700 dark:bg-black dark:text-white dark:hover:bg-gray-900"
-            >
-              LinkedIn
-            </button>
+            <GithubAuthButton />
+            <LinkedInAuthButton />
           </motion.div>
           <motion.div
             initial={{
