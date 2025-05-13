@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import FileUpload from "../components/ui/FileUpload";
 import SkillSelector from "../components/ui/SkillSelector";
@@ -8,8 +8,7 @@ import GithubAuthButton from "../components/ui/GithubAuthButton";
 import { useRouter } from "next/navigation";
 
 export default function GetStartedPage() {
-  const [file, setFile] = useState<File | null>(null);
-  const [formData, setFormData] = useState({
+  const defaultFormData = {
     name: "",
     email: "",
     skills: [],
@@ -23,7 +22,16 @@ export default function GetStartedPage() {
         bullets: [""],
       },
     ],
+  }
+  const [file, setFile] = useState<File | null>(null);
+  const [formData, setFormData] = useState(() => {
+    if (typeof window === "undefined") return defaultFormData;
+    return sessionStorage.getItem("formData") ? JSON.parse(sessionStorage.getItem("formData")!) : defaultFormData;
   });
+
+  useEffect(() => {
+    sessionStorage.setItem("formData", JSON.stringify(formData));
+  }, [formData]);
 
   const router = useRouter();
 
