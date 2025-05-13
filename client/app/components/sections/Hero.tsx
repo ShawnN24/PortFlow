@@ -6,10 +6,13 @@ import { cn } from "@/lib/utils";
 import { useState } from "react";
 import GithubAuthButton from "../ui/GithubAuthButton";
 import LinkedInAuthButton from "../ui/LinkedInAuthButton";
+import GetStartedButton from "../ui/GetStartedButton";
+import { useRouter } from "next/navigation";
  
 export function Hero() {
   const [isGithub, setGithub] = useState();
   const [isLinkedIn, setLinkedIn] = useState();
+  const router = useRouter();
 
   return (
     <div className="relative mx-auto flex flex-col items-center justify-center">
@@ -58,7 +61,7 @@ export function Hero() {
           >
             Create and deploy your personal portfolio website in less than a minute.
             <motion.p className="text-purple-600">
-              Powered by Github & LinkedIn.
+              Powered by Github & Resumes.
             </motion.p>
           </motion.div>
           <motion.div
@@ -74,8 +77,12 @@ export function Hero() {
             }}
             className="relative z-10 mt-8 flex flex-wrap items-center justify-center gap-4"
           >
-            <GithubAuthButton />
-            <LinkedInAuthButton />
+            <button onClick={() => router.push("/GetStarted")} className="w-120 justify-center flex rounded-lg bg-purple-600 px-6 py-2 font-medium text-white transition-all duration-300 hover:-translate-y-0.5 hover:bg-purple-500">
+              <div className="flex">
+                Get Started
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ffffff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-chevron-right-icon lucide-chevron-right"><path d="m15 18 6-6-6-6"/></svg>
+              </div>
+            </button>
           </motion.div>
           <motion.div
             initial={{
@@ -90,7 +97,7 @@ export function Hero() {
               duration: 0.3,
               delay: 1.2,
             }}
-            className="relative z-10 mt-20 rounded-3xl border border-neutral-200 bg-neutral-100 p-4 shadow-md dark:border-neutral-800 dark:bg-neutral-900"
+            className="relative z-10 mt-15 rounded-3xl border border-neutral-200 bg-neutral-100 p-4 shadow-md dark:border-neutral-800 dark:bg-neutral-900"
           >
             <div className="w-full overflow-hidden rounded-xl border border-gray-300 dark:border-gray-700">
               <Image
