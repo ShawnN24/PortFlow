@@ -6,8 +6,11 @@ import FileUpload from "../components/ui/FileUpload";
 import SkillSelector from "../components/ui/SkillSelector";
 import GithubAuthButton from "../components/ui/GithubAuthButton";
 import { useRouter } from "next/navigation";
+import dynamic from "next/dynamic";
+import ExperienceForm from "../components/ui/ExperienceForm";
 
 export default function GetStartedPage() {
+  // const SkillSelector = dynamic(() => import('../components/ui/SkillSelector'), { ssr: false });
   const defaultFormData = {
     name: "",
     email: "",
@@ -25,9 +28,24 @@ export default function GetStartedPage() {
   }
   const [file, setFile] = useState<File | null>(null);
   const [formData, setFormData] = useState(() => {
-    if (typeof window === "undefined") return defaultFormData;
-    return sessionStorage.getItem("formData") ? JSON.parse(sessionStorage.getItem("formData")!) : defaultFormData;
+    if (typeof window !== "undefined") {
+      const stored = sessionStorage.getItem("formData");
+      if (stored) {
+        try {
+          return JSON.parse(stored);
+        } catch {
+          sessionStorage.removeItem("formData");
+        }
+      }
+    }
+    return defaultFormData;
   });
+  
+  const [isClient, setIsClient] = useState(false)
+ 
+  useEffect(() => {
+    setIsClient(true)
+  }, []);
 
   useEffect(() => {
     sessionStorage.setItem("formData", JSON.stringify(formData));
@@ -82,7 +100,16 @@ export default function GetStartedPage() {
         name: parseData.name || "",
         email: parseData.email || "",
         skills: parseData.skills || [""],
-        experiences: expData.experiences || [],
+        experiences: expData.experiences || [
+          {
+            job_title: "",
+            company: "",
+            location: "",
+            start_date: "",
+            end_date: "",
+            bullets: [""],
+          },
+        ],
       });
     } catch (err: any) {
       setError(err.message || "Unknown error");
@@ -93,25 +120,6 @@ export default function GetStartedPage() {
 
   const updateField = (field: string, value: any) => {
     setFormData(prev => ({ ...prev, [field]: value }));
-  };
-
-  const addExperience = () => {
-    const newExperience = {
-      job_title: "",
-      company: "",
-      location: "",
-      start_date: "",
-      end_date: "",
-      bullets: [""],
-    };
-
-    updateField("experiences", [...formData.experiences, newExperience]);
-  };
-
-  const deleteExperience = (index: number) => {
-    const updated = [...formData.experiences];
-    updated.splice(index, 1);
-    updateField("experiences", updated);
   };
 
   const isFormComplete = () => {
@@ -165,115 +173,34 @@ export default function GetStartedPage() {
 
         {error && <p className="mt-4 text-red-500">{error}</p>}
 
-        <div className="mt-6 space-y-4">
-          <div>
-            <label className="block font-semibold">Name</label>
-            <input
-              className="w-full p-2 border rounded"
-              value={formData.name}
-              onChange={e => updateField("name", e.target.value)}
-            />
-          </div>
-
-          <div>
-            <label className="block font-semibold">Email</label>
-            <input
-              className="w-full p-2 border rounded"
-              value={formData.email}
-              onChange={e => updateField("email", e.target.value)}
-            />
-          </div>
-
-          <SkillSelector skills={formData.skills} setSkills={(skills) => updateField("skills", skills)} />
-
-          <div>
-            <div className="flex justify-between items-center">
-              <label className="font-semibold text-lg">Experiences</label>
-              <button
-                onClick={addExperience}
-                disabled={formData.experiences.length >= 10}
-                className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded"
-              >
-                Add Experience
-              </button>
+        {/* Prevent Hydration Error */}
+        {isClient && 
+          <div className="mt-6 space-y-4">
+            <div>
+              <label className="block font-semibold">Name</label>
+              <input
+                className="w-full p-2 border rounded"
+                value={formData.name ?? ""}
+                onChange={e => updateField("name", e.target.value)}
+              />
             </div>
-            {formData.experiences.map((exp, idx) => (
-              <div key={idx} className="p-4 border rounded my-2 space-y-2">
-                <div className="flex justify-between gap-2">
-                  <input
-                    className="w-full p-2 border rounded"
-                    placeholder="Job Title"
-                    value={exp.job_title}
-                    onChange={e => {
-                      const newExp = [...formData.experiences];
-                      newExp[idx].job_title = e.target.value;
-                      updateField("experiences", newExp);
-                    }}
-                  />
-                  {idx !== 0 && (
-                    <button
-                      onClick={() => deleteExperience(idx)}
-                      className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded"
-                    >
-                      Delete
-                    </button>
-                  )}
-                </div>
-                <input
-                  className="w-full p-2 border rounded"
-                  placeholder="Company"
-                  value={exp.company}
-                  onChange={e => {
-                    const newExp = [...formData.experiences];
-                    newExp[idx].company = e.target.value;
-                    updateField("experiences", newExp);
-                  }}
-                />
-                <input
-                  className="w-full p-2 border rounded"
-                  placeholder="Location"
-                  value={exp.location}
-                  onChange={e => {
-                    const newExp = [...formData.experiences];
-                    newExp[idx].location = e.target.value;
-                    updateField("experiences", newExp);
-                  }}
-                />
-                <div className="flex gap-2">
-                  <input
-                    className="w-1/2 p-2 border rounded"
-                    placeholder="Start Date"
-                    value={exp.start_date}
-                    onChange={e => {
-                      const newExp = [...formData.experiences];
-                      newExp[idx].start_date = e.target.value;
-                      updateField("experiences", newExp);
-                    }}
-                  />
-                  <input
-                    className="w-1/2 p-2 border rounded"
-                    placeholder="End Date"
-                    value={exp.end_date}
-                    onChange={e => {
-                      const newExp = [...formData.experiences];
-                      newExp[idx].end_date = e.target.value;
-                      updateField("experiences", newExp);
-                    }}
-                  />
-                </div>
-                <textarea
-                  className="w-full p-2 border rounded my-1"
-                  value={exp.bullets.join("\n")}
-                  onChange={e => {
-                    const newExp = [...formData.experiences];
-                    newExp[idx].bullets = e.target.value.split("\n").filter(line => line.trim() !== "");
-                    updateField("experiences", newExp);
-                  }}
-                />
-              </div>
-            ))}
+
+            <div>
+              <label className="block font-semibold">Email</label>
+              <input
+                className="w-full p-2 border rounded"
+                value={formData.email ?? ""}
+                onChange={e => updateField("email", e.target.value)}
+              />
+            </div>
+
+            <SkillSelector skills={formData.skills} setSkills={(skills) => updateField("skills", skills)} />
+
+            <ExperienceForm experiences={formData.experiences} setExperiences={(experiences) => updateField("experiences", experiences)} />
+            
           </div>
-        </div>
+        }
+
         <h2 className="text-2xl mt-4">Step 3: Generate your portfolio website.</h2>
         <p className="mb-4 text-gray-600">Ensure all information is filled out correctly.</p>
         <button onClick={() => handleGeneratePortfolio()} className="flex items-center text-nowrap transform rounded-lg bg-black px-6 py-2 font-medium text-white transition-all duration-300 hover:-translate-y-0.5 hover:bg-gray-800 dark:bg-white dark:text-black dark:hover:bg-gray-200">

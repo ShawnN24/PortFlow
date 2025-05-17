@@ -5,41 +5,35 @@ export default function GithubAuthButton() {
   const clientSecret = process.env.GITHUB_APP_CLIENT_SECRET;
   const redirectUri = 'http://localhost:3000/GetStarted';
 
-  const [isGithubAccessToken, setGithubAccessToken] = useState(() => {
-    if (typeof window === "undefined") return false;
-    return localStorage.getItem("githubAccessToken") ? true : false;
-  });
+  const [isGithubAccessToken, setGithubAccessToken] = useState(false);
   // const [isUserData, setUserData] = useState<string | null>();
+
+  useEffect(() => {
+    if (localStorage.getItem("githubAccessToken")) setGithubAccessToken(true);
+  }, []);
 
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
     const code = urlParams.get("code");
 
     async function fetchData() {
-      if (code) {
+      if (code && !localStorage.getItem("githubAccessToken")) {
         try {
-          //let accessToken = localStorage?.getItem("githubAccessToken");
-          
-          // Step 1: Grab access token
-          if(!isGithubAccessToken) {
-            const tokenRes = await fetch(`http://localhost:4000/getGithubAccessToken?code=${code}`);
-            const tokenData = await tokenRes.json();
-            const accessToken = tokenData.access_token;
-            localStorage.setItem("githubAccessToken", accessToken!);
-            console.log("Access Token Response:", accessToken);
-          }
-          setGithubAccessToken(true);
-          // console.log("Access Token Response:", accessToken);
+          const tokenRes = await fetch(`http://localhost:4000/getGithubAccessToken?code=${code}`);
+          const tokenData = await tokenRes.json();
+          const accessToken = tokenData.access_token;
 
-          // // Step 2: Fetch user data with access token
-          // const userRes = await fetch("http://localhost:4000/getGithubUserData", {
-          //   headers: {
-          //     Authorization: `Bearer ${accessToken}`,
-          //   },
-          // });
-          // const userData = await userRes.json();
-          // setUserData(userData);
-          // console.log("User Data:", userData);
+          if (accessToken) {
+            localStorage.setItem("githubAccessToken", accessToken);
+            setGithubAccessToken(true);
+            console.log("Access Token Response:", accessToken);
+
+            // Remove the code from URL so it doesn’t get reused
+            const newUrl = window.location.origin + window.location.pathname;
+            window.history.replaceState({}, document.title, newUrl);
+          } else {
+            console.error("No access token returned", tokenData);
+          }
         } catch (err) {
           console.error("Error during GitHub auth flow", err);
         }
