@@ -2,8 +2,6 @@ import { useState, useRef } from "react";
 import { useDrag, useDrop } from "react-dnd";
 import { skillToIconClass } from "@/public/skillToIcon";
 
-// TODO: FIX SCROLL BAR IF POSSIBLE, ADD INFO ICON FOR BUTTON EXPLANATIONS, ADD FOOTER, ADD REPO CREATION AND DEPLOYMENT INSTRUCTIONS
-
 const ItemType = "SKILL";
 
 function DraggableSkill({ icon, index, moveSkill, deleteSkill, draggable }) {

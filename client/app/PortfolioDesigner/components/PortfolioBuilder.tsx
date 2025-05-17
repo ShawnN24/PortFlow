@@ -17,6 +17,7 @@ import ColorPicker from './ui/ColorPicker';
 import ThemeToggle from './ui/ThemeToggle';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
+import ReloadGithubAuth from './ui/Reload';
 
 const lightTheme = {
   bg: "#F9FAFB",
@@ -158,6 +159,7 @@ export default function PortfolioBuilder({formData, githubData}) {
               }}
             />
             <ThemeToggle isDarkMode={isDarkMode} setDarkMode={setDarkMode} />
+            <ReloadGithubAuth />
           </div>
         </div>
 

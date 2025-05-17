@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
 
-export default function GithubAuthButton() {
+function handleGithubAuth() {
   const clientId = process.env.NEXT_PUBLIC_GITHUB_APP_CLIENT_ID;
-  const clientSecret = process.env.GITHUB_APP_CLIENT_SECRET;
   const redirectUri = 'http://localhost:3000/GetStarted';
+  const authUrl = new URL(`https://github.com/login/oauth/authorize?client_id=${clientId}&redirect_uri=${redirectUri}`);
+  window.location.assign(authUrl);
+}
 
+export default function GithubAuthButton() {
   const [isGithubAccessToken, setGithubAccessToken] = useState(false);
-  // const [isUserData, setUserData] = useState<string | null>();
 
   useEffect(() => {
     if (localStorage.getItem("githubAccessToken")) setGithubAccessToken(true);
@@ -42,11 +44,6 @@ export default function GithubAuthButton() {
     
     fetchData();
   }, []);
-
-  function handleGithubAuth() {
-    const authUrl = new URL(`https://github.com/login/oauth/authorize?client_id=${clientId}&redirect_uri=${redirectUri}`);
-    window.location.assign(authUrl);
-  }
 
   return(
     <button 
