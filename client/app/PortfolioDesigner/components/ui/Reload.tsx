@@ -10,36 +10,6 @@ function handleGithubAuth() {
 }
 
 export default function ReloadGithubAuth() {
-  const redirectUri = 'http://localhost:3000/PortfolioDesigner';
-
-  useEffect(() => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const code = urlParams.get("code");
-
-    async function fetchData() {
-      if (code && !localStorage.getItem("githubAccessToken")) {
-        try {
-          const tokenRes = await fetch(`http://localhost:4000/getGithubAccessToken?code=${code}`);
-          const tokenData = await tokenRes.json();
-          const accessToken = tokenData.access_token;
-
-          if (accessToken) {
-            localStorage.setItem("githubAccessToken", accessToken);
-            console.log("Access Token Response:", accessToken);
-            
-            window.location.assign(redirectUri);
-          } else {
-            console.error("No access token returned", tokenData);
-          }
-        } catch (err) {
-          console.error("Error during GitHub auth flow", err);
-        }
-      }
-    }
-    
-    fetchData();
-  }, []);
-
   return(
     <button
       title='Refresh Data'

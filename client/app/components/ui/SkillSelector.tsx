@@ -29,7 +29,7 @@ export default function SkillSelector({ skills, setSkills }: {
 
   return (
     <div>
-      <label className="block font-semibold">Skills</label>
+      <label className="block font-semibold">Skills <span className="text-red-500">*</span></label>
       
       {/* Selected skills */}
       <div className="flex flex-wrap gap-2 mb-2">

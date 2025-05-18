@@ -29,7 +29,7 @@ export default function ExperienceContainer({ formData, githubData, themeColor, 
               <p style={{ color: mode.accent }}>{idx+1}</p>
               <div className="flex-1 pl-2 border-l" style={{ borderColor: mode.accent }}>
                 <p className="font-bold" style={{ color: themeColor }}>{exp.company}</p>
-                <p className="font-bold text-lg">{exp.job_title}</p>
+                <p className="font-bold text-lg leading-tight">{exp.job_title}</p>
                 <p className="text-sm" style={{ color: mode.accent }}>
                   {exp.start_date} - {exp.end_date}
                 </p>

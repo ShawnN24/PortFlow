@@ -73,7 +73,7 @@ export default function PortfolioDesignerPage() {
           try {
             const res = await fetch(repo.languages_url);
             const data = await res.json();
-            langData[repo.name] = Object.keys(data);
+            langData[repo.name] = data;
           } catch (error) {
             console.error(`Error fetching languages for ${repo.name}:`, error);
             langData[repo.name] = [];

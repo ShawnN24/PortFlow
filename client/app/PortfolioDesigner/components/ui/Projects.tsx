@@ -1,5 +1,6 @@
 import { useCallback, useRef, useState, memo } from "react";
 import { useDrag, useDrop } from "react-dnd";
+import RepoLangBar from "./RepoLangBar";
 
 const ItemType = "PROJECT";
 
@@ -68,13 +69,7 @@ const DraggableProject = memo(function DraggableProject({
       </div>
       <p className="text-sm mt-1">{repo.description}</p>
 
-      <div className="flex flex-wrap items-center gap-3 text-sm mt-2">
-        {languages?.length > 0 && (
-          <span className="text-sm italic">
-            Languages: {languages.join(", ")}
-          </span>
-        )}
-      </div>
+      <RepoLangBar languages={languages} mode={mode} />
 
       {repo.topics && repo.topics.length > 0 && (
         <div className="mt-2 flex flex-wrap gap-2">

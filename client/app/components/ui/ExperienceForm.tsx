@@ -33,7 +33,7 @@ export default function ExperienceForm({ experiences, setExperiences }: {
   return (
     <div>
       <div className="flex justify-between items-center">
-        <label className="font-semibold text-lg">Experiences</label>
+        <label className="font-semibold text-lg">Experiences <span className="text-red-500">*</span></label>
         <button
           onClick={addExperience}
           disabled={experiences.length >= 10}

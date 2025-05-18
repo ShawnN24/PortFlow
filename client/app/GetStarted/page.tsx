@@ -177,7 +177,7 @@ export default function GetStartedPage() {
         {isClient && 
           <div className="mt-6 space-y-4">
             <div>
-              <label className="block font-semibold">Name</label>
+              <label className="block font-semibold">Name <span className="text-red-500">*</span></label>
               <input
                 className="w-full p-2 border rounded"
                 value={formData.name ?? ""}
@@ -186,7 +186,7 @@ export default function GetStartedPage() {
             </div>
 
             <div>
-              <label className="block font-semibold">Email</label>
+              <label className="block font-semibold">Email <span className="text-red-500">*</span></label>
               <input
                 className="w-full p-2 border rounded"
                 value={formData.email ?? ""}

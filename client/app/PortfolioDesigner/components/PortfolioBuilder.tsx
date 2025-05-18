@@ -75,7 +75,7 @@ export default function PortfolioBuilder({formData, githubData}) {
         );
       case 'profile':
         return (
-          <ProfileContainer formData={formData} githubData={githubData.user} themeColor={themeColor} isDarkMode={isDarkMode} edit={components.edit} />
+          <ProfileContainer formData={formData} githubData={githubData.user} themeColor={themeColor} isDarkMode={isDarkMode} mode={mode} edit={components.edit} />
         );
       case 'experience':
         return (
