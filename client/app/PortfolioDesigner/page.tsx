@@ -100,33 +100,6 @@ export default function PortfolioDesignerPage() {
       <Navbar/>
       <div className="mb-[8%]">
         <PortfolioBuilder formData={formData} githubData={isGithubData} />
-        {/* <h1 className="mt-100 text-3xl font-bold">{formData.name}</h1>
-        <p className="text-gray-600">{formData.email}</p>
-
-        <h2 className="mt-6 text-xl font-semibold">Skills</h2>
-        <div className="flex flex-wrap gap-2">
-          {formData.skills.map((skill, idx) => (
-            <span key={idx} className="bg-gray-200 px-3 py-1 rounded-full text-sm">{skill}</span>
-          ))}
-        </div>
-
-        <h2 className="mt-6 text-xl font-semibold">Experience</h2>
-        {formData.experiences.map((exp, idx) => (
-          <div key={idx} className="mt-4 border-l-4 border-black pl-4">
-            <p className="font-semibold">{exp.job_title} at {exp.company}</p>
-            <p className="text-sm text-gray-500">{exp.start_date} – {exp.end_date}</p>
-            <ul className="list-disc ml-6 mt-1 text-sm">
-              {exp.bullets.map((b, i) => <li key={i}>{b}</li>)}
-            </ul>
-          </div>
-        ))}
-
-        <h2 className="mt-6 text-xl font-semibold">GitHub Highlights</h2>
-        <p className="text-sm text-gray-600">Username: {isGithubData.login}</p>
-        <p className="text-sm text-gray-600">Public Repos: {isGithubData.public_repos}</p>
-        <a href={isGithubData.html_url} className="text-blue-500 underline" target="_blank">
-          View GitHub Profile
-        </a> */}
       </div>
     </div>
   );

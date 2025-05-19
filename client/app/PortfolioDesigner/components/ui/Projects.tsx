@@ -51,8 +51,8 @@ const DraggableProject = memo(function DraggableProject({
   return (
     <div
       ref={ref}
-      onDoubleClick={() => deleteProject(index)}
-      className="p-4 rounded-xl shadow-md cursor-pointer"
+      onDoubleClick={() => draggable && deleteProject(index)}
+      className={`p-4 rounded-xl shadow-md ${draggable ? "cursor-pointer" : "cursor-default"}`}
       style={{ backgroundColor: mode.background, color: mode.text_primary }}
     >
       <div className="flex items-center">
@@ -65,9 +65,14 @@ const DraggableProject = memo(function DraggableProject({
         >
           {repo.name}
         </a>
-        <span className="flex items-center">⭐{repo.stargazers_count}</span>
+        <span className="flex items-center">
+          <svg height="16" width="16" className="mr-2">
+            <path fill="yellow" stroke="black" d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.751.751 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25Z"/>
+          </svg>
+          {repo.stargazers_count}
+        </span>
       </div>
-      <p className="text-sm mt-1">{repo.description}</p>
+      <p className="text-sm mt-1 leading-tight">{repo.description}</p>
 
       <RepoLangBar languages={languages} mode={mode} />
 
@@ -101,34 +106,30 @@ export default function ProjectsContainer({
   const [repos, setRepos] = useState(githubData.repos);
   const [languagesMap, setLanguagesMap] = useState(githubData.languages);
 
-  const moveProject = useCallback((from, to) => {
-    setRepos((prevRepos) => {
-      const updated = [...prevRepos];
-      const [moved] = updated.splice(from, 1);
-      updated.splice(to, 0, moved);
-      return updated;
-    });
-  }, []);
+  const moveProject = (from, to) => {
+    const updated = [...repos];
+    const [moved] = updated.splice(from, 1);
+    updated.splice(to, 0, moved);
+    setRepos(updated);
+  };
 
-  const deleteProject = useCallback((index) => {
-    setRepos((prevRepos) => {
-      const updated = [...prevRepos];
-      updated.splice(index, 1);
-      return updated;
-    });
-  }, []);
+  const deleteProject = (index) => {
+    const updated = [...repos];
+    updated.splice(index, 1);
+    setRepos(updated);
+  };
 
   return (
     <div className="flex flex-col h-full">
-      <div>
+      <div className={`${!edit && "cursor-pointer drag-handle"}`}>
         <p
-          className="text-xl flex justify-between font-bold px-3 pt-3"
+          className="text-xl flex justify-between font-bold px-3 pt-2"
           style={{ backgroundColor: mode.accent }}
         >
           Personal Projects
         </p>
         <div
-          className="text-sm pl-5 pb-3 flex items-center gap-1"
+          className="text-sm px-5 pb-2 flex items-center gap-1"
           style={{ backgroundColor: mode.accent, color: mode.text_secondary }}
         >
           <svg

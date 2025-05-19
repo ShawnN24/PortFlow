@@ -43,7 +43,7 @@ function DraggableSkill({ icon, index, moveSkill, deleteSkill, draggable }) {
     <div
       ref={ref}
       title={icon}
-      className={`w-14 ${draggable ? "cursor-pointer" : "cursor-default"}`}
+      className={`w-12 ${draggable ? "cursor-pointer" : "cursor-default"}`}
       onDoubleClick={() => draggable && deleteSkill(index)}
     >
       <img
@@ -72,15 +72,15 @@ export default function SkillsContainer({ formData, githubData, themeColor, mode
 
   return (
     <div className="flex-1">
-      <div>
+      <div className={`${!edit && "cursor-pointer drag-handle"}`}>
         <p
-          className="text-xl flex justify-between font-bold px-3 pt-3"
+          className="text-xl flex justify-between font-bold px-3 pt-2"
           style={{ backgroundColor: mode.accent }}
         >
           Technological Skills
         </p>
         <div
-          className="text-sm pl-5 pb-3 flex items-center gap-1"
+          className="text-sm px-5 pb-2 flex items-center gap-1"
           style={{ backgroundColor: mode.accent, color: mode.text_secondary }}
         >
           <svg
@@ -100,7 +100,7 @@ export default function SkillsContainer({ formData, githubData, themeColor, mode
           <p>{skills.length} Skills</p>
         </div>
       </div>
-      <div className="flex flex-wrap justify-center gap-4 p-3">
+      <div className="flex flex-wrap justify-center gap-4 p-3 py-3">
         {skills.map((icon, index) => (
           <DraggableSkill
             key={index}

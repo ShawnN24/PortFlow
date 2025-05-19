@@ -9,11 +9,11 @@ export default function ExperienceContainer({ formData, githubData, themeColor, 
 
   return (
     <div className={`flex flex-col h-full ${edit && `opacity-5`}`}>
-      <div>
-        <p className="text-xl font-bold pl-3 pt-3" style={{ backgroundColor: mode.accent }}>
+      <div className={`${!edit && "cursor-pointer drag-handle"}`}>
+        <p className="text-xl font-bold px-3 pt-2" style={{ backgroundColor: mode.accent }}>
           Professional Experience
         </p>
-        <div className="text-sm pl-5 pb-3 flex items-center gap-1" style={{ backgroundColor: mode.accent, color: mode.text_secondary }}>
+        <div className="text-sm px-5 pb-2 flex items-center gap-1" style={{ backgroundColor: mode.accent, color: mode.text_secondary }}>
           <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-small-icon lucide-circle-small"><circle cx="12" cy="12" r="6"/></svg>
           <p>{formData.experiences.length} Experiences</p>
         </div>
@@ -36,8 +36,8 @@ export default function ExperienceContainer({ formData, githubData, themeColor, 
               </div>
             </div>
             {expandedIndex === idx && (
-              <div className="pl-5 pt-2 text-sm" style={{ color: mode.accent }}>
-                {exp.description}
+              <div className="pl-8 pr-5 pt-2 text-sm leading-tight" style={{ color: mode.text_secondary }}>
+                {exp.bullets.map((b, i) => <li key={i}>{b}</li>)}
               </div>
             )}
           </div>

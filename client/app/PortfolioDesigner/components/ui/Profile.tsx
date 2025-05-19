@@ -2,7 +2,7 @@ export default function ProfileContainer({ formData, githubData, themeColor, isD
   const bgColor = isDarkMode ? '#f9fafb' : '#0f172a';
 
   return (
-    <div className={`${edit && `opacity-5`}`}>
+    <div className={`${edit ? `opacity-5` : `cursor-pointer drag-handle`}`}>
       <div className='flex flex-col items-center'>
         <div className='relative w-full h-full rounded-2xl p-2'>
           {/* Glowing Gradient Background */}
@@ -21,7 +21,11 @@ export default function ProfileContainer({ formData, githubData, themeColor, isD
               backgroundColor: themeColor,
             }}
           >
-            <img src={githubData.avatar_url} className="object-cover w-full h-full" />
+            {formData.profile_image ? 
+              <img src={formData.profile_image} className="object-cover w-full h-full" />
+            : 
+              <img src={githubData.avatar_url} className="object-cover w-full h-full" />
+            }
           </div>
         </div>
 
@@ -33,8 +37,12 @@ export default function ProfileContainer({ formData, githubData, themeColor, isD
           <p className='text-lg px-7 pt-2 leading-tight' style={{ color: mode.accent }}>
             {formData.experiences[0].job_title}<br />@ {formData.experiences[0].company}
           </p>
-          <p className='text-sm px-5 py-2 leading-snug' style={{ color: mode.text_secondary }}>
-            <strong>{githubData.bio}</strong>
+          <p className='text-sm px-5 py-2 whitespace-pre-line leading-snug' style={{ color: mode.text_secondary }}>
+            {formData.bio ? 
+              <strong>{formData.bio}</strong>
+            :
+              <strong>{githubData.bio}</strong>
+            }
           </p>
         </div>
       </div>

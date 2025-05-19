@@ -8,12 +8,16 @@ import GithubAuthButton from "../components/ui/GithubAuthButton";
 import { useRouter } from "next/navigation";
 import dynamic from "next/dynamic";
 import ExperienceForm from "../components/ui/ExperienceForm";
+import PictureUpload from "../components/ui/PictureUpload";
 
 export default function GetStartedPage() {
   // const SkillSelector = dynamic(() => import('../components/ui/SkillSelector'), { ssr: false });
   const defaultFormData = {
     name: "",
     email: "",
+    linkedIn: "",
+    bio: "",
+    profile_image: "",
     skills: [],
     experiences: [
       {
@@ -59,6 +63,8 @@ export default function GetStartedPage() {
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       setFile(e.target.files[0]);
+      const objectUrl = URL.createObjectURL(e.target.files[0]);
+      sessionStorage.setItem("resumeUrl", objectUrl);
     }
   };
 
@@ -176,6 +182,8 @@ export default function GetStartedPage() {
         {/* Prevent Hydration Error */}
         {isClient && 
           <div className="mt-6 space-y-4">
+            <PictureUpload formData={formData} setPicture={(field, value) => updateField(field, value)} />
+
             <div>
               <label className="block font-semibold">Name <span className="text-red-500">*</span></label>
               <input
@@ -191,6 +199,25 @@ export default function GetStartedPage() {
                 className="w-full p-2 border rounded"
                 value={formData.email ?? ""}
                 onChange={e => updateField("email", e.target.value)}
+              />
+            </div>
+
+            <div>
+              <label className="block font-semibold">LinkedIn Link <span className="text-gray-400">(optional)</span></label>
+              <input
+                className="w-full p-2 border rounded"
+                value={formData.linkedIn ?? ""}
+                onChange={e => updateField("linkedIn", e.target.value)}
+              />
+            </div>
+
+            <div>
+              <label className="block font-semibold">Bio <span className="text-gray-400">(optional)</span></label>
+              <textarea
+                className="w-full p-2 border rounded"
+                rows={4}
+                value={formData.bio ?? ""}
+                onChange={e => updateField("bio", e.target.value)}
               />
             </div>
 
