@@ -50,11 +50,11 @@ export default function generateStaticMarkup({ formData, githubData, activeLayou
         );
       case 'projects':
         return (
-          <ProjectsContainer formData={formData} githubData={githubData} themeColor={themeColor} mode={mode} edit={false} />
+          <ProjectsContainer formData={formData} githubData={githubData} themeColor={themeColor} mode={mode} edit={false} onReposChange={() => {}} />
         );
       case 'skills':
         return (
-          <SkillsContainer formData={formData} githubData={githubData} themeColor={themeColor} mode={mode} edit={false} />
+          <SkillsContainer formData={formData} githubData={githubData} themeColor={themeColor} mode={mode} edit={false} onSkillsChange={() => {}} />
         );
       case 'history':
         return (
@@ -66,28 +66,30 @@ export default function generateStaticMarkup({ formData, githubData, activeLayou
   };
 
   const StaticGrid = () => (
-    <DndProvider backend={HTML5Backend}>
-      <div className={`flex-1 overflow-hidden pb-[5%]`} style={{ backgroundColor: mode.bg }}>
-        <GridLayout
-          style={{ backgroundColor: mode.bg, color: mode.text_primary}}
-          layout={filteredLayout}
-          cols={16}
-          rowHeight={5}
-          width={window.innerWidth}
-          isResizable={false}
-          isDraggable={false}
-          draggableHandle=".drag-handle"
-        >
-          {filteredLayout.map(item => (
-            <div key={item.i} className={`flex shadow rounded-xl overflow-hidden`}
-            style={{ backgroundColor: mode.card_bg, borderColor: mode.border_color}}
-            >
-              {renderComponent(item.i)}
-            </div>
-          ))}
-        </GridLayout>
-      </div>
-    </DndProvider>
+    <div className={"pb-[5%]"} style={{ backgroundColor: `${mode.bg}` }}>
+      <DndProvider backend={HTML5Backend}>
+        <div className={`flex-1 overflow-hidden pb-[5%]`} style={{ backgroundColor: mode.bg }}>
+          <GridLayout
+            style={{ backgroundColor: mode.bg, color: mode.text_primary}}
+            layout={filteredLayout}
+            cols={16}
+            rowHeight={5}
+            width={window.innerWidth}
+            isResizable={false}
+            isDraggable={false}
+            draggableHandle=".drag-handle"
+          >
+            {filteredLayout.map(item => (
+              <div key={item.i} className={`flex shadow rounded-xl overflow-hidden`}
+              style={{ backgroundColor: mode.card_bg, borderColor: mode.border_color}}
+              >
+                {renderComponent(item.i)}
+              </div>
+            ))}
+          </GridLayout>
+        </div>
+      </DndProvider>
+    </div>
   );
 
   const htmlString = ReactDOMServer.renderToStaticMarkup(<StaticGrid />);
@@ -101,7 +103,7 @@ export default function generateStaticMarkup({ formData, githubData, activeLayou
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   </head>
   <body>
-    <div id="root" className={"pb-[5%]"} style={{ backgroundColor: ${mode.bg} }}>${htmlString}</div>
+    <div id="root">${htmlString}</div>
   </body>
   </html>
   `;

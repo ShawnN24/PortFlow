@@ -83,7 +83,7 @@ export default function PortfolioBuilder({formData, githubData}) {
         );
       case 'projects':
         return (
-          <ProjectsContainer formData={isFormData} githubData={isGithubData} themeColor={themeColor} mode={mode} edit={components.edit} onReposChange={(updatedRepos) => {console.log("Updating repos:", updatedRepos); setGithubData(prev => ({ ...prev, repos: updatedRepos }))}} />
+          <ProjectsContainer formData={isFormData} githubData={isGithubData} themeColor={themeColor} mode={mode} edit={components.edit} onReposChange={(updatedRepos) => setGithubData(prev => ({ ...prev, repos: updatedRepos }))} />
         );
       case 'skills':
         return (
