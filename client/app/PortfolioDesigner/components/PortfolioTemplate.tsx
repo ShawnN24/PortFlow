@@ -27,23 +27,12 @@ const darkTheme = {
   accent: "#3E3E3E",
 };
 
-export default function generateStaticMarkup({ formData, githubData, components, themeColor, isDarkMode }) {
+export default function generateStaticMarkup({ formData, githubData, activeLayout, components, themeColor, isDarkMode }) {
   const mode = isDarkMode ? darkTheme : lightTheme;
 
-  const baseLayout = [
-    { i: 'navbar', x: 0, y: 0, w: 16, h: 4, static: true },
-    { i: 'profile', x: 2, y: 2, w: 4, h: 52 },
-    { i: 'experience', x: 6, y: 1, w: 4, h: 29 },
-    { i: 'projects', x: 10, y: 1, w: 4, h: 52 },
-    { i: 'skills', x: 6, y: 6, w: 4, h: 23 },
-    { i: 'history', x: 2, y: 10, w: 12, h: 14 },
-  ];
-
-  const getActiveLayout = () => {
-    return baseLayout
-      .filter(item => components[item.i]) //filter only active components
-      .map(item => ({ ...item })); // preserve static flag if present
-  };
+   const filteredLayout = activeLayout
+    .filter(item => components[item.i]) // show only enabled components
+    .map(item => ({ ...item }));
 
   const renderComponent = (id) => {
     switch (id) {
@@ -78,20 +67,18 @@ export default function generateStaticMarkup({ formData, githubData, components,
 
   const StaticGrid = () => (
     <DndProvider backend={HTML5Backend}>
-      <div className={`flex-1 overflow-hidden`} style={{ height: '100vh' }}>
+      <div className={`flex-1 overflow-hidden pb-[5%]`} style={{ backgroundColor: mode.bg }}>
         <GridLayout
-          className=''
           style={{ backgroundColor: mode.bg, color: mode.text_primary}}
-          layout={getActiveLayout()}
+          layout={filteredLayout}
           cols={16}
           rowHeight={5}
-          width={1000}
+          width={window.innerWidth}
           isResizable={false}
           isDraggable={false}
-          onLayoutChange={() => {}}
           draggableHandle=".drag-handle"
         >
-          {getActiveLayout().map(item => (
+          {filteredLayout.map(item => (
             <div key={item.i} className={`flex shadow rounded-xl overflow-hidden`}
             style={{ backgroundColor: mode.card_bg, borderColor: mode.border_color}}
             >
@@ -110,20 +97,11 @@ export default function generateStaticMarkup({ formData, githubData, components,
   <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Static Grid Layout</title>
-    <style>
-      /* Basic CSS reset and styles here */
-      body, html { margin: 0; padding: 0; font-family: sans-serif; }
-      .flex { display: flex; }
-      .shadow { box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
-      .rounded-xl { border-radius: 1rem; }
-      .overflow-hidden { overflow: hidden; }
-      .flex-1 { flex: 1; }
-      /* Add any additional styles your GridLayout needs */
-    </style>
+    <title>${formData.name}'s PortFlow</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   </head>
   <body>
-    <div id="root">${htmlString}</div>
+    <div id="root" className={"pb-[5%]"} style={{ backgroundColor: ${mode.bg} }}>${htmlString}</div>
   </body>
   </html>
   `;

@@ -51,6 +51,7 @@ export default function PortfolioDesignerPage() {
   } | null>(null);
   const [repos, setRepos] = useState([]);
   const [languagesMap, setLanguagesMap] = useState({});
+
   useEffect(() => {
     const accessToken = localStorage.getItem("githubAccessToken");
     if (!accessToken) router.push("/GetStarted");
@@ -67,13 +68,20 @@ export default function PortfolioDesignerPage() {
       const repoData = await repoRes.json();
       setRepos(repoData);
 
+      const res = await fetch('/colors.json');
+      const colorData = await res.json();
+
       const langData = {};
       await Promise.all(
         repoData.map(async (repo) => {
           try {
             const res = await fetch(repo.languages_url);
             const data = await res.json();
-            langData[repo.name] = data;
+            langData[repo.name] = Object.entries(data).map(([lang, bytes]) => ({
+              name: lang,
+              bytes: bytes,
+              color: colorData?.[lang]?.color
+            }));
           } catch (error) {
             console.error(`Error fetching languages for ${repo.name}:`, error);
             langData[repo.name] = [];
@@ -98,7 +106,7 @@ export default function PortfolioDesignerPage() {
   return(
     <div>
       <Navbar/>
-      <div className="mb-[8%]">
+      <div className="">
         <PortfolioBuilder formData={formData} githubData={isGithubData} />
       </div>
     </div>

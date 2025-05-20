@@ -1,7 +1,7 @@
 import { useState } from "react";
 import generateStaticMarkup from "../PortfolioTemplate";
 
-export default function DeployButton({ formData, githubData, components, themeColor, isDarkMode }) {
+export default function DeployButton({ formData, githubData, activeLayout, components, themeColor, isDarkMode }) {
   const [repoUrl, setRepoUrl] = useState(null);
   const [loading, setLoading] = useState(false);
   const accessToken = localStorage.getItem('githubAccessToken');
@@ -12,6 +12,7 @@ export default function DeployButton({ formData, githubData, components, themeCo
       const html = generateStaticMarkup({
         formData,
         githubData,
+        activeLayout,
         components,
         themeColor,
         isDarkMode,

@@ -39,7 +39,8 @@ const darkTheme = {
 };
 
 export default function PortfolioBuilder({formData, githubData}) {
-  const router = useRouter();
+  const [isFormData, setFormData] = useState(formData);
+  const [isGithubData, setGithubData] = useState(githubData);
   const [themeColor, setThemeColor] = useState('#9810FA');
   const [isDarkMode, setDarkMode] = useState(false);
   const mode = isDarkMode ? darkTheme : lightTheme;
@@ -55,44 +56,42 @@ export default function PortfolioBuilder({formData, githubData}) {
 
   const baseLayout = [
     { i: 'navbar', x: 0, y: 0, w: 16, h: 5, static: true },
-    { i: 'profile', x: 2, y: 2, w: 4, h: 54 },
-    { i: 'experience', x: 6, y: 1, w: 4, h: 31 },
-    { i: 'projects', x: 10, y: 1, w: 4, h: 54 },
-    { i: 'skills', x: 6, y: 6, w: 4, h: 23 },
-    { i: 'history', x: 2, y: 10, w: 12, h: 16 },
+    { i: 'profile', x: 2, y: 2, w: 4, h: 54, static: false },
+    { i: 'experience', x: 6, y: 1, w: 4, h: 31, static: false },
+    { i: 'projects', x: 10, y: 1, w: 4, h: 54, static: false },
+    { i: 'skills', x: 6, y: 6, w: 4, h: 23, static: false },
+    { i: 'history', x: 2, y: 10, w: 12, h: 16, static: false },
   ];
 
-  const getActiveLayout = () => {
-    return baseLayout
-      .filter(item => components[item.i]) //filter only active components
-      .map(item => ({ ...item })); // preserve static flag if present
-  };
+  const [isLayout, setLayout] = useState(baseLayout);
+  const getLayout = () =>
+    isLayout.filter(item => components[item.i]);
 
   const renderComponent = (id) => {
     switch (id) {
       case 'navbar':
         return (
-          <NavbarContainer formData={formData} githubData={githubData} edit={components.edit} />
+          <NavbarContainer formData={isFormData} githubData={isGithubData} edit={components.edit} />
         );
       case 'profile':
         return (
-          <ProfileContainer formData={formData} githubData={githubData.user} themeColor={themeColor} isDarkMode={isDarkMode} mode={mode} edit={components.edit} />
+          <ProfileContainer formData={isFormData} githubData={isGithubData.user} themeColor={themeColor} isDarkMode={isDarkMode} mode={mode} edit={components.edit} />
         );
       case 'experience':
         return (
-          <ExperienceContainer formData={formData} githubData={githubData} themeColor={themeColor} mode={mode} edit={components.edit} />
+          <ExperienceContainer formData={isFormData} githubData={isGithubData} themeColor={themeColor} mode={mode} edit={components.edit} />
         );
       case 'projects':
         return (
-          <ProjectsContainer formData={formData} githubData={githubData} themeColor={themeColor} mode={mode} edit={components.edit} />
+          <ProjectsContainer formData={isFormData} githubData={isGithubData} themeColor={themeColor} mode={mode} edit={components.edit} onReposChange={(updatedRepos) => {console.log("Updating repos:", updatedRepos); setGithubData(prev => ({ ...prev, repos: updatedRepos }))}} />
         );
       case 'skills':
         return (
-          <SkillsContainer formData={formData} githubData={githubData} themeColor={themeColor} mode={mode} edit={components.edit} />
+          <SkillsContainer formData={isFormData} githubData={isGithubData} themeColor={themeColor} mode={mode} edit={components.edit} onSkillsChange={(updatedSkills) => setFormData(prev => ({ ...prev, skills: updatedSkills }))} />
         );
       case 'history':
         return (
-          <HistoryContainer formData={formData} githubData={githubData.user} themeColor={themeColor.slice(1)} edit={components.edit} />
+          <HistoryContainer formData={isFormData} githubData={isGithubData.user} themeColor={themeColor.slice(1)} edit={components.edit} />
         );
       default:
         return null;
@@ -161,24 +160,33 @@ export default function PortfolioBuilder({formData, githubData}) {
             <ThemeToggle isDarkMode={isDarkMode} setDarkMode={setDarkMode} />
             <ReloadGithubAuth />
             <hr className="my-1" />
-            <DeployButton formData={formData} githubData={githubData} components={components} themeColor={themeColor} isDarkMode={isDarkMode} />
+            <DeployButton formData={isFormData} githubData={isGithubData} activeLayout={getLayout()} components={components} themeColor={themeColor} isDarkMode={isDarkMode} />
           </div>
         </div>
 
-        <div className={`flex-1 overflow-hidden`}>
+        <div className={`flex-1 overflow-hidden pb-[5%]`} style={{ backgroundColor: mode.bg }}>
           <GridLayout
             className=''
             style={{ backgroundColor: mode.bg, color: mode.text_primary}}
-            layout={getActiveLayout()}
+            layout={getLayout()}
+            onLayoutChange={(newLayout) => {
+              // Merge new positions into the full layout
+              setLayout((prevLayout) => {
+                const updated = prevLayout.map(item => {
+                  const updatedItem = newLayout.find(i => i.i === item.i);
+                  return updatedItem ? { ...item, ...updatedItem } : item;
+                });
+                return updated;
+              });
+            }}
             cols={16}
             rowHeight={5}
             width={window.innerWidth}
             isResizable
             isDraggable={!components.edit}
-            onLayoutChange={() => {}}
             draggableHandle=".drag-handle"
           >
-            {getActiveLayout().map(item => (
+            {getLayout().map(item => (
               <div key={item.i} className={`flex shadow rounded-xl overflow-hidden`}
               style={{ backgroundColor: mode.card_bg, borderColor: mode.border_color}}
               >

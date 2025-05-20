@@ -102,21 +102,27 @@ export default function ProjectsContainer({
   themeColor,
   mode,
   edit,
+  onReposChange,
 }) {
   const [repos, setRepos] = useState(githubData.repos);
   const [languagesMap, setLanguagesMap] = useState(githubData.languages);
+
+  const updateRepos = (updated) => {
+    setRepos(updated);
+    onReposChange?.(updated); // propagate up
+  };
 
   const moveProject = (from, to) => {
     const updated = [...repos];
     const [moved] = updated.splice(from, 1);
     updated.splice(to, 0, moved);
-    setRepos(updated);
+    updateRepos(updated);
   };
 
   const deleteProject = (index) => {
     const updated = [...repos];
     updated.splice(index, 1);
-    setRepos(updated);
+    updateRepos(updated);
   };
 
   return (

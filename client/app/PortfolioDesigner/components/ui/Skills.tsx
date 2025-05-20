@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useDrag, useDrop } from "react-dnd";
 import { skillToIconClass } from "@/public/skillToIcon";
 
@@ -54,20 +54,25 @@ function DraggableSkill({ icon, index, moveSkill, deleteSkill, draggable }) {
   );
 }
 
-export default function SkillsContainer({ formData, githubData, themeColor, mode, edit }) {
+export default function SkillsContainer({ formData, githubData, themeColor, mode, edit, onSkillsChange }) {
   const [skills, setSkills] = useState(formData.skills);
+
+  const updateSkills = (updated) => {
+    setSkills(updated);
+    onSkillsChange?.(updated); // propagate up
+  };
 
   const moveSkill = (from, to) => {
     const updated = [...skills];
     const [moved] = updated.splice(from, 1);
     updated.splice(to, 0, moved);
-    setSkills(updated);
+    updateSkills(updated);
   };
 
   const deleteSkill = (index) => {
     const updated = [...skills];
     updated.splice(index, 1);
-    setSkills(updated);
+    updateSkills(updated);
   };
 
   return (
