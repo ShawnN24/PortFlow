@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 
 const GITHUB_CLIENT_ID = process.env.NEXT_PUBLIC_GITHUB_APP_CLIENT_ID!;
-const GITHUB_CLIENT_SECRET = process.env.GITHUB_APP_CLIENT_SECRET!;
+const GITHUB_CLIENT_SECRET = process.env.NEXT_PUBLIC_GITHUB_APP_CLIENT_SECRET!;
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   const code = req.query.code;
