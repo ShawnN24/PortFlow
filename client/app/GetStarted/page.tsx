@@ -82,14 +82,14 @@ export default function GetStartedPage() {
         fetch("https://ai-resume-parser-4vtn.onrender.com/parse", {
           method: "POST",
           headers: {
-            "X-API-Key": "12ac34db-41e1-4fb0-8783-d7be98cb73a5"
+            "X-API-Key": `${process.env.NEXT_PUBLIC_X_API_KEY}`
           },
           body: fd,
         }),
         fetch("https://ai-resume-parser-4vtn.onrender.com/extract-experience", {
           method: "POST",
           headers: {
-            "X-API-Key": "12ac34db-41e1-4fb0-8783-d7be98cb73a5"
+            "X-API-Key": `${process.env.NEXT_PUBLIC_X_API_KEY}`
           },
           body: fd
         }),
