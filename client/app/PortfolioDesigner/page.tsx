@@ -57,7 +57,7 @@ export default function PortfolioDesignerPage() {
     if (!accessToken) router.push("/GetStarted");
 
     async function fetchData() {
-      const userRes = await fetch("http://localhost:4000/getGithubUserData", {
+      const userRes = await fetch("/api/getGithubUserData", {
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },

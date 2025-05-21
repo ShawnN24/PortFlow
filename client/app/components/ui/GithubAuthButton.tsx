@@ -21,7 +21,7 @@ export default function GithubAuthButton() {
     async function fetchData() {
       if (code && !localStorage.getItem("githubAccessToken")) {
         try {
-          const tokenRes = await fetch(`http://localhost:4000/getGithubAccessToken?code=${code}`);
+          const tokenRes = await fetch(`/api/getGithubAccessToken?code=${code}`);
           const tokenData = await tokenRes.json();
           const accessToken = tokenData.access_token;
 
