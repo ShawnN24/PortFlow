@@ -7,14 +7,11 @@ export default function ProfileContainer({ formData, githubData, themeColor, isD
         <div className='relative w-full h-full rounded-2xl p-2'>
           {/* Glowing Gradient Background */}
           <div
-            className="absolute inset-0 rounded-2xl blur opacity-40"
-            style={{
-              background: `linear-gradient(135deg, ${themeColor}, ${bgColor})`,
-              zIndex: -1
-            }}
+            className="absolute inset-0 rounded-2xl blur opacity-40 z-[-1]"
+            style={{background: `linear-gradient(135deg, ${themeColor}, ${bgColor})`}}
           />
           {/* Profile Image */}
-          <div className="w-full h-full rounded-2xl border-0 overflow-hidden">
+          <div className="relative w-full h-full rounded-2xl border-0 overflow-hidden z-[1]">
             {formData.profile_image ? 
               <img src={formData.profile_image} className="object-cover w-full h-full" />
             : 
