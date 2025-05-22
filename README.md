@@ -1,6 +1,6 @@
 # 🚀 PortFlow – Instantly Deployable Developer Portfolios
 
-PortFlow is a full-stack web application that empowers developers to create and deploy beautiful, personalized portfolio websites with **one click** — using just their **GitHub profile** and **resume data**.
+PortFlow is a full-stack web application that empowers developers to create and deploy beautiful, personalized portfolio websites with **one click** using just their **GitHub profile** and **resume data**.
 
 ![PortFlow Banner](https://raw.githubusercontent.com/ShawnN24/PortFlow/refs/heads/main/client/public/banner.png)
 
