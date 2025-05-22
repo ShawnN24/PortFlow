@@ -4,7 +4,7 @@ import { Base64 } from 'js-base64';
 export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).json({ message: 'Only POST allowed' });
 
-  const { html, formData, githubData, repoName, accessToken } = req.body;
+  const { html, githubData, repoName, accessToken } = req.body;
   // Check for access token
   if (!accessToken) {
     return res.status(401).json({ message: 'Missing GitHub access token' });
@@ -142,7 +142,7 @@ npm run dev
       }
     }
 
-    res.status(200).json({ message: `✅ Portfolio deployed successfully!\nView Repo at ${githubUrl}\nView Portfolio at ${siteUrl}`});
+    res.status(200).json({ message: `✅ Portfolio deployed successfully!\nView Repo at ${githubUrl}\nView Portfolio at ${siteUrl}`, siteUrl: siteUrl, githubUrl: githubUrl});
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: `Error deploying: ${err.message}` });

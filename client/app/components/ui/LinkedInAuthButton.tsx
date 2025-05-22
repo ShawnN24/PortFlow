@@ -2,11 +2,9 @@ import { useEffect, useState } from "react";
 
 export default function LinkedInAuthButton() {
   const clientId = process.env.NEXT_PUBLIC_LINKEDIN_CLIENT_ID;
-  const clientSecret = process.env.LINKEDIN_APP_CLIENT_SECRET;
   const redirectUri = 'http://localhost:3000/';
 
   const [isLinkedInAccessToken, setLinkedInAccessToken] = useState(false);
-  const [userData, setUserData] = useState();
 
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
@@ -36,7 +34,6 @@ export default function LinkedInAuthButton() {
           });
           const userData = await userRes.json();
           console.log("User Data:", userData);
-          setUserData(userData);
         } catch (err) {
           console.error("Error during LinkedIn auth flow", err);
         }

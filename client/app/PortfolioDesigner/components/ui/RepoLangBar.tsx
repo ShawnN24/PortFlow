@@ -7,13 +7,13 @@ export default function RepoLangBar({ languages, mode }) {
   return (
     <div>
       <div className="w-full h-2 my-2 flex rounded-full overflow-hidden">
-        {Object.entries(languages).map(([lang, {name, bytes, color}], i) => {
+        {Object.entries(languages).map(([lang, {name, bytes, color}]) => {
           const percentage = ((bytes / totalBytes) * 100).toFixed(1);
           const langColor = color || "#999";
 
           return (
             <div
-              key={i}
+              key={lang}
               style={{
                 width: `${percentage}%`,
                 backgroundColor: langColor,
@@ -24,13 +24,13 @@ export default function RepoLangBar({ languages, mode }) {
         })}
       </div>
       <div className="flex flex-wrap gap-2 mb-1 text-sm">
-        {Object.entries(languages).map(([lang, {name, bytes, color}], i) => {
+        {Object.entries(languages).map(([lang, {name, bytes, color}]) => {
           const percentage = ((bytes / totalBytes) * 100).toFixed(1);
           const langColor = color || mode.accent;
 
           return (
             <span
-              key={i}
+              key={lang}
               className="px-2 py-1 text-xs rounded-full border"
               style={{
                 borderColor: langColor,

@@ -5,7 +5,6 @@ import React, { useState } from 'react';
 import GridLayout from 'react-grid-layout';
 import 'react-grid-layout/css/styles.css';
 import 'react-resizable/css/styles.css';
-import { useRouter } from 'next/navigation';
 import ProfileContainer from './ui/Profile';
 import NavbarContainer from './ui/Navbar';
 import ExperienceContainer from './ui/Experience';
@@ -79,19 +78,19 @@ export default function PortfolioBuilder({formData, githubData}) {
         );
       case 'experience':
         return (
-          <ExperienceContainer formData={isFormData} githubData={isGithubData} themeColor={themeColor} mode={mode} edit={components.edit} />
+          <ExperienceContainer formData={isFormData} themeColor={themeColor} mode={mode} edit={components.edit} />
         );
       case 'projects':
         return (
-          <ProjectsContainer formData={isFormData} githubData={isGithubData} themeColor={themeColor} mode={mode} edit={components.edit} onReposChange={(updatedRepos) => setGithubData(prev => ({ ...prev, repos: updatedRepos }))} />
+          <ProjectsContainer githubData={isGithubData} themeColor={themeColor} mode={mode} edit={components.edit} onReposChange={(updatedRepos) => setGithubData(prev => ({ ...prev, repos: updatedRepos }))} />
         );
       case 'skills':
         return (
-          <SkillsContainer formData={isFormData} githubData={isGithubData} themeColor={themeColor} mode={mode} edit={components.edit} onSkillsChange={(updatedSkills) => setFormData(prev => ({ ...prev, skills: updatedSkills }))} />
+          <SkillsContainer formData={isFormData} mode={mode} edit={components.edit} onSkillsChange={(updatedSkills) => setFormData(prev => ({ ...prev, skills: updatedSkills }))} />
         );
       case 'history':
         return (
-          <HistoryContainer formData={isFormData} githubData={isGithubData.user} themeColor={themeColor.slice(1)} edit={components.edit} />
+          <HistoryContainer githubData={isGithubData.user} themeColor={themeColor.slice(1)} edit={components.edit} />
         );
       default:
         return null;

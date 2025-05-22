@@ -46,19 +46,19 @@ export default function generateStaticMarkup({ formData, githubData, activeLayou
         );
       case 'experience':
         return (
-          <ExperienceContainer formData={formData} githubData={githubData} themeColor={themeColor} mode={mode} edit={false} />
+          <ExperienceContainer formData={formData} themeColor={themeColor} mode={mode} edit={false} />
         );
       case 'projects':
         return (
-          <ProjectsContainer formData={formData} githubData={githubData} themeColor={themeColor} mode={mode} edit={false} onReposChange={() => {}} />
+          <ProjectsContainer githubData={githubData} themeColor={themeColor} mode={mode} edit={false} onReposChange={() => {}} />
         );
       case 'skills':
         return (
-          <SkillsContainer formData={formData} githubData={githubData} themeColor={themeColor} mode={mode} edit={false} onSkillsChange={() => {}} />
+          <SkillsContainer formData={formData} mode={mode} edit={false} onSkillsChange={() => {}} />
         );
       case 'history':
         return (
-          <HistoryContainer formData={formData} githubData={githubData.user} themeColor={themeColor.slice(1)} edit={false} />
+          <HistoryContainer githubData={githubData.user} themeColor={themeColor.slice(1)} edit={false} />
         );
       default:
         return null;

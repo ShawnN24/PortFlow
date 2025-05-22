@@ -3,15 +3,9 @@
 import Image from "next/image";
 import { motion } from "motion/react";
 import { cn } from "@/lib/utils";
-import { useState } from "react";
-import GithubAuthButton from "../ui/GithubAuthButton";
-import LinkedInAuthButton from "../ui/LinkedInAuthButton";
-import GetStartedButton from "../ui/GetStartedButton";
 import { useRouter } from "next/navigation";
  
 export function Hero() {
-  const [isGithub, setGithub] = useState();
-  const [isLinkedIn, setLinkedIn] = useState();
   const router = useRouter();
 
   return (

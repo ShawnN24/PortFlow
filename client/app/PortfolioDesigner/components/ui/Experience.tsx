@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-export default function ExperienceContainer({ formData, githubData, themeColor, mode, edit }) {
+export default function ExperienceContainer({ formData, themeColor, mode, edit }) {
   const [expandedIndex, setExpandedIndex] = useState(null);
 
   const toggleExpand = (idx) => {

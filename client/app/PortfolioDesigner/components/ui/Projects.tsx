@@ -1,4 +1,4 @@
-import { useCallback, useRef, useState, memo } from "react";
+import { useRef, useState, memo } from "react";
 import { useDrag, useDrop } from "react-dnd";
 import RepoLangBar from "./RepoLangBar";
 
@@ -97,7 +97,6 @@ const DraggableProject = memo(function DraggableProject({
 });
 
 export default function ProjectsContainer({
-  formData,
   githubData,
   themeColor,
   mode,
@@ -105,7 +104,6 @@ export default function ProjectsContainer({
   onReposChange,
 }) {
   const [repos, setRepos] = useState(githubData.repos);
-  const [languagesMap, setLanguagesMap] = useState(githubData.languages);
 
   const updateRepos = (updated) => {
     setRepos(updated);
@@ -165,7 +163,7 @@ export default function ProjectsContainer({
             deleteProject={deleteProject}
             themeColor={themeColor}
             mode={mode}
-            languages={languagesMap[repo.name]}
+            languages={githubData.languages[repo.name]}
             draggable={edit}
           />
         ))}

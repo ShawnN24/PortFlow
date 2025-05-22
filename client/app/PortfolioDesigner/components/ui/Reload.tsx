@@ -1,5 +1,3 @@
-import { useEffect } from "react";
-
 function handleGithubAuth() {
   if (localStorage.getItem("githubAccessToken")) localStorage.removeItem("githubAccessToken");
 

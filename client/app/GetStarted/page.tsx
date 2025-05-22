@@ -6,9 +6,27 @@ import FileUpload from "../components/ui/FileUpload";
 import SkillSelector from "../components/ui/SkillSelector";
 import GithubAuthButton from "../components/ui/GithubAuthButton";
 import { useRouter } from "next/navigation";
-import dynamic from "next/dynamic";
 import ExperienceForm from "../components/ui/ExperienceForm";
 import PictureUpload from "../components/ui/PictureUpload";
+
+interface Experience {
+  job_title: string;
+  company: string;
+  location: string;
+  start_date: string;
+  end_date: string;
+  bullets: string[];
+}
+
+interface MyFormData {
+  name: string;
+  email: string;
+  linkedIn: string;
+  bio: string;
+  profile_image: string;
+  skills: string[];
+  experiences: Experience[];
+}
 
 export default function GetStartedPage() {
   // const SkillSelector = dynamic(() => import('../components/ui/SkillSelector'), { ssr: false });
@@ -117,15 +135,19 @@ export default function GetStartedPage() {
           },
         ],
       });
-    } catch (err: any) {
-      setError(err.message || "Unknown error");
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError("Unknown error");
+      }
     } finally {
       setLoading(false);
     }
   };
 
-  const updateField = (field: string, value: any) => {
-    setFormData(prev => ({ ...prev, [field]: value }));
+  const updateField = <K extends keyof MyFormData>(field: K, value: MyFormData[K]) => {
+    setFormData((prev: MyFormData) => ({ ...prev, [field]: value }));
   };
 
   const isFormComplete = () => {
