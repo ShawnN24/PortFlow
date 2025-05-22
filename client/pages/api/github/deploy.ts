@@ -142,7 +142,7 @@ npm run dev
       }
     }
 
-    res.status(200).json({ message: `✅ Portfolio deployed successfully!\nView Repo at ${githubUrl}\nView Portfolio at ${siteUrl}`});
+    res.status(200).json({ message: `✅ Portfolio deployed successfully!\nView Repo at ${githubUrl}\nView Portfolio at ${siteUrl}`, siteUrl: siteUrl, githubUrl: githubUrl});
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: `Error deploying: ${err.message}` });

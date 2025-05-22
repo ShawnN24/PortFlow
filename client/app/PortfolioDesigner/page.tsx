@@ -9,17 +9,19 @@ interface GithubUser {
   login: string;
   avatar_url: string;
   html_url: string;
+  repos_url: string;
   name?: string;
   bio?: string;
-  // Add other fields as needed
 }
 
 interface GithubRepo {
   name: string;
+  full_name: string;
   html_url: string;
-  language: string | null;
   description?: string;
-  // Add other fields as needed
+  languages_url: string;
+  stargazers_url?: string;
+  topics?: string[];
 }
 
 export default function PortfolioDesignerPage() {
@@ -87,7 +89,7 @@ export default function PortfolioDesignerPage() {
 
       const langData = {};
       await Promise.all(
-        repoData.map(async (repo) => {
+        repoData.map(async (repo: GithubRepo) => {
           try {
             const res = await fetch(repo.languages_url);
             const data = await res.json();

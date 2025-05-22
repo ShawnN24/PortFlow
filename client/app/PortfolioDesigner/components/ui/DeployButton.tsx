@@ -7,6 +7,8 @@ export default function DeployButton({ formData, githubData, activeLayout, compo
   const accessToken = localStorage.getItem('githubAccessToken');
 
   const handleDeploy = async () => {
+    if(loading) return;
+    console.log("🚀 Deploy triggered");
     setLoading(true);
     try {
       const html = generateStaticMarkup({
@@ -31,16 +33,11 @@ export default function DeployButton({ formData, githubData, activeLayout, compo
       });
 
       const result = await response.json();
-      alert(result.message || `Deployment complete!`);
-      if (response.ok) {
-        setRepoUrl(result.url);
-        alert('Portfolio deployed successfully!');
-      } else {
-        alert(`Deployment failed: ${result.message}`);
-      }
+      alert(`${result.message}`);
+      setRepoUrl(result.siteUrl);
     } catch (err) {
-      console.error('Deploy failed:', err);
-      alert('Deployment failed. Check console for details.');
+      alert('❌ Deploy failed!');
+      console.error('❌ Deploy failed:', err);
     } finally {
       setLoading(false);
     }
