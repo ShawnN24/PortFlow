@@ -5,6 +5,23 @@ import Navbar from "../components/Navbar";
 import { useRouter } from "next/navigation";
 import PortfolioBuilder from "./components/PortfolioBuilder";
 
+interface GithubUser {
+  login: string;
+  avatar_url: string;
+  html_url: string;
+  name?: string;
+  bio?: string;
+  // Add other fields as needed
+}
+
+interface GithubRepo {
+  name: string;
+  html_url: string;
+  language: string | null;
+  description?: string;
+  // Add other fields as needed
+}
+
 export default function PortfolioDesignerPage() {
   const defaultFormData = {
     name: "",
@@ -45,12 +62,10 @@ export default function PortfolioDesignerPage() {
   // Handle Github Data
   const router = useRouter();
   const [isGithubData, setGithubData] = useState<{
-    user: any;
-    repos: any[];
+    user: GithubUser;
+    repos: GithubRepo[];
     languages: Record<string, string[]>;
   } | null>(null);
-  const [repos, setRepos] = useState([]);
-  const [languagesMap, setLanguagesMap] = useState({});
 
   useEffect(() => {
     const accessToken = localStorage.getItem("githubAccessToken");
@@ -66,7 +81,6 @@ export default function PortfolioDesignerPage() {
 
       const repoRes = await fetch(`https://api.github.com/users/${userData.login}/repos`);
       const repoData = await repoRes.json();
-      setRepos(repoData);
 
       const res = await fetch('/colors.json');
       const colorData = await res.json();
@@ -88,7 +102,6 @@ export default function PortfolioDesignerPage() {
           }
         })
       );
-      setLanguagesMap(langData);
 
       setGithubData({
         user: userData,

@@ -4,7 +4,7 @@ import { Base64 } from 'js-base64';
 export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).json({ message: 'Only POST allowed' });
 
-  const { html, formData, githubData, repoName, accessToken } = req.body;
+  const { html, githubData, repoName, accessToken } = req.body;
   // Check for access token
   if (!accessToken) {
     return res.status(401).json({ message: 'Missing GitHub access token' });

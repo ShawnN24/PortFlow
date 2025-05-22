@@ -22,6 +22,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     console.log(data);
     res.status(200).json(data);
   } catch (error) {
+    console.error("GitHub token exchange error:", error);
     res.status(500).json({ error: 'Failed to fetch GitHub access token' });
   }
 }

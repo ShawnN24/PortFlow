@@ -2,7 +2,7 @@ import { useState } from "react";
 
 export default function PictureUpload({ formData, setPicture }: {
   formData: { profile_image?: string };
-  setPicture: (field: string, value: any) => void;
+  setPicture: (field: string, value: string | ArrayBuffer | null) => void;
 }) {
   const [fileName, setFileName] = useState("No file selected");
 
@@ -26,7 +26,9 @@ export default function PictureUpload({ formData, setPicture }: {
               setFileName(e.target.files[0].name);
               const reader = new FileReader();
               reader.onloadend = () => {
-                setPicture("profile_image", reader.result);
+                if (typeof reader.result === "string") {
+                  setPicture("profile_image", reader.result);
+                }
               };
               reader.readAsDataURL(e.target.files?.[0]); // convert to base64
             } else {
