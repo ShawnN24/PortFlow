@@ -54,6 +54,7 @@ export default function ExperienceForm({ experiences, setExperiences }: {
                 newExp[idx].job_title = e.target.value;
                 setExperiences(newExp);
               }}
+              maxLength={100}
             />
             {idx !== 0 && (
               <button
@@ -73,6 +74,7 @@ export default function ExperienceForm({ experiences, setExperiences }: {
               newExp[idx].company = e.target.value;
               setExperiences(newExp);
             }}
+            maxLength={100}
           />
           <input
             className="w-full p-2 border rounded"
@@ -83,6 +85,7 @@ export default function ExperienceForm({ experiences, setExperiences }: {
               newExp[idx].location = e.target.value;
               setExperiences(newExp);
             }}
+            maxLength={100}
           />
           <div className="flex gap-2">
             <input
@@ -94,6 +97,7 @@ export default function ExperienceForm({ experiences, setExperiences }: {
                 newExp[idx].start_date = e.target.value;
                 setExperiences(newExp);
               }}
+              maxLength={25}
             />
             <input
               className="w-1/2 p-2 border rounded"
@@ -104,6 +108,7 @@ export default function ExperienceForm({ experiences, setExperiences }: {
                 newExp[idx].end_date = e.target.value;
                 setExperiences(newExp);
               }}
+              maxLength={25}
             />
           </div>
           <textarea
@@ -114,6 +119,7 @@ export default function ExperienceForm({ experiences, setExperiences }: {
               newExp[idx].bullets = e.target.value.split("\n").filter(line => line.trim() !== "");
               setExperiences(newExp);
             }}
+            maxLength={1000}
           />
         </div>
       ))}

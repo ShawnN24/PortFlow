@@ -212,6 +212,7 @@ export default function GetStartedPage() {
                 className="w-full p-2 border rounded"
                 value={formData.name ?? ""}
                 onChange={e => updateField("name", e.target.value)}
+                maxLength={50}
               />
             </div>
 
@@ -221,6 +222,7 @@ export default function GetStartedPage() {
                 className="w-full p-2 border rounded"
                 value={formData.email ?? ""}
                 onChange={e => updateField("email", e.target.value)}
+                maxLength={50}
               />
             </div>
 
@@ -230,6 +232,7 @@ export default function GetStartedPage() {
                 className="w-full p-2 border rounded"
                 value={formData.linkedIn ?? ""}
                 onChange={e => updateField("linkedIn", e.target.value)}
+                maxLength={100}
               />
             </div>
 
@@ -240,6 +243,7 @@ export default function GetStartedPage() {
                 rows={4}
                 value={formData.bio ?? ""}
                 onChange={e => updateField("bio", e.target.value)}
+                maxLength={1000}
               />
             </div>
 
