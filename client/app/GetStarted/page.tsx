@@ -23,7 +23,7 @@ interface MyFormData {
   email: string;
   linkedIn: string;
   bio: string;
-  profile_image: string;
+  profile_image: string | ArrayBuffer | null;
   skills: string[];
   experiences: Experience[];
 }
@@ -146,7 +146,7 @@ export default function GetStartedPage() {
     }
   };
 
-  const updateField = <K extends keyof MyFormData>(field: K, value: MyFormData[K]) => {
+  const updateField = <K extends keyof MyFormData>(field: string, value: MyFormData[K]) => {
     setFormData((prev: MyFormData) => ({ ...prev, [field]: value }));
   };
 
