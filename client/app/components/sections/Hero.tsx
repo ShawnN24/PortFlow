@@ -4,6 +4,7 @@ import Image from "next/image";
 import { motion } from "motion/react";
 import { cn } from "@/lib/utils";
 import { useRouter } from "next/navigation";
+import Marquee from "../ui/Marquee";
  
 export function Hero() {
   const router = useRouter();
@@ -78,6 +79,10 @@ export function Hero() {
               </div>
             </button>
           </motion.div>
+          
+          <Marquee />
+          <div className="p-17"></div>
+
           <motion.div
             initial={{
               opacity: 0,
@@ -95,9 +100,9 @@ export function Hero() {
           >
             <div className="w-full overflow-hidden rounded-xl border border-gray-300 dark:border-gray-700">
               <Image
-                src="https://assets.aceternity.com/pro/aceternity-landing.webp"
-                alt="Landing page preview"
-                className="aspect-[16/9] h-auto w-full object-cover"
+                src='/shawnn24.github.io_portflow-portfolio_.png'
+                alt="PortFlow Portfolio Preview"
+                className="h-auto w-full"
                 height={1000}
                 width={1000}
               />
