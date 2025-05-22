@@ -256,7 +256,7 @@ export default function GetStartedPage() {
 
         <h2 className="text-2xl mt-4">Step 3: Generate your portfolio website.</h2>
         <p className="mb-4 text-gray-600">Ensure all information is filled out correctly.</p>
-        <button onClick={() => handleGeneratePortfolio()} className="flex items-center text-nowrap transform rounded-lg bg-black px-6 py-2 font-medium text-white transition-all duration-300 hover:-translate-y-0.5 hover:bg-gray-800 dark:bg-white dark:text-black dark:hover:bg-gray-200">
+        <button onClick={() => handleGeneratePortfolio()} className="flex items-center text-nowrap transform rounded-lg bg-black px-6 py-2 font-medium text-white transition-all duration-300 hover:-translate-y-0.5 hover:bg-gray-800  dark:bg-gray-900 dark:hover:bg-gray-200">
           Generate Portfolio Website
           <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ffffff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-chevron-right-icon lucide-chevron-right"><path d="m15 18 6-6-6-6"/></svg>
         </button>
