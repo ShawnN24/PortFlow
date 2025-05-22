@@ -2,7 +2,7 @@
 
 PortFlow is a full-stack web application that empowers developers to create and deploy beautiful, personalized portfolio websites with **one click** — using just their **GitHub profile** and **resume data**.
 
-![Test Image](https://raw.githubusercontent.com/github/explore/main/topics/react/react.png)
+![PortFlow Banner](https://raw.githubusercontent.com/ShawnN24/PortFlow/refs/heads/main/client/public/banner.png)
 
 ## 🌐 Live Demo
 [PortFlow](https://portflow-shawnn24s-projects.vercel.app) — Try it now!
