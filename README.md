@@ -22,7 +22,7 @@ PortFlow is a full-stack web application that empowers developers to create and 
 
 ## 🛠️ Tech Stack
 
-- **Frontend:** Typescript React, Next.js, TailwindCSS, DndKit, Lucide Icons
+- **Frontend:** Typescript, React, Next.js, TailwindCSS, DndKit, Lucide Icons
 - **Backend:** Node.js, Express
 - **Authentication:** GitHub OAuth
 - **GitHub API:** Octokit for repo creation and content updates
