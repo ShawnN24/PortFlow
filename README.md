@@ -1,36 +1,54 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🚀 PortFlow – Instantly Deployable Developer Portfolios
 
-## Getting Started
+PortFlow is a full-stack web application that empowers developers to create and deploy beautiful, personalized portfolio websites with **one click** using just their **GitHub profile** and **resume data**.
 
-First, run the development server:
+![PortFlow Banner](https://raw.githubusercontent.com/ShawnN24/PortFlow/refs/heads/main/client/public/banner.png)
 
+## 🌐 Live Demo
+[PortFlow](https://portflow-shawnn24s-projects.vercel.app) — Try it now!
+
+---
+
+## 🧰 Features
+
+- 🔗 **GitHub Integration** – Pulls your GitHub profile and repositories.
+- 📄 **Resume Upload** – Parses your resume to pre-fill portfolio content.
+- 🧱 **Customizable Layout** – Visually build your portfolio layout.
+- 🎨 **Customizable Styling** – Pick colors, theme, and mode.
+- ⚡ **One-Click Deployment** – Generates and deploys a static portfolio to GitHub Pages.
+- 📊 **Analytics Ready** – Future integration for visitor stats and clicks.
+
+---
+
+## 🛠️ Tech Stack
+
+- **Frontend:** Typescript, React, Next.js, TailwindCSS, DndKit, Lucide Icons
+- **Backend:** Node.js, Express
+- **Authentication:** GitHub OAuth
+- **GitHub API:** Octokit for repo creation and content updates
+- **Resume Parsing:** [AI-Resume-Parser](https://github.com/ShawnN24/AI-Resume-Parser)
+- **Deployment:** GitHub Pages
+
+---
+
+## 🧭 Getting Started
+
+Frontend
 ```bash
+cd client
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Backend
+```bash
+cd backend
+npm install
+npm start
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🙏 Credits
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Layout inspiration from [Luan Nguyen's](https://github.com/LuaanNguyen) Spotify themed [portfolio website](https://www.luannguyen.net/)
+- Github history pulled from [Rushi Shah's](https://github.com/2016rshah) [githubchart-api](https://github.com/2016rshah/githubchart-api)
+- Skill list and logos pulled from [Devicon](https://devicon.dev/)
