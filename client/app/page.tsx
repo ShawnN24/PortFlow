@@ -7,7 +7,7 @@ import Problem from "./components/sections/Problem";
 
 export default function Home() {
   return (
-    <div>
+    <div className="overflow-hidden">
       <Navbar/>
       <Hero/>
       <Problem/>

@@ -2,7 +2,7 @@ export default function Footer() {
   return(
     <footer className="w-full flex justify-center items-center py-4">
       <p className="text-center">
-        © PortFlow 2025, Design By{" "}
+        © Shawn's PortFlow Design 2025, Design By{" "}
         <a
           href="https://github.com/ShawnN24/PortFlow"
           target="_blank"
