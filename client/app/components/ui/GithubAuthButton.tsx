@@ -2,7 +2,8 @@ import { useEffect, useState } from "react";
 
 function handleGithubAuth() {
   const clientId = process.env.NEXT_PUBLIC_GITHUB_APP_CLIENT_ID;
-  const redirectUri = 'http://localhost:3000/GetStarted';
+  const myUrl = process.env.NEXT_PUBLIC_URL;
+  const redirectUri = `${myUrl}/GetStarted`;
   const authUrl = new URL(`https://github.com/login/oauth/authorize?client_id=${clientId}&redirect_uri=${redirectUri}`);
   window.location.assign(authUrl);
 }
