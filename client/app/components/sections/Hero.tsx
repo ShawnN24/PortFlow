@@ -5,6 +5,7 @@ import { motion } from "motion/react";
 import { cn } from "@/lib/utils";
 import { useRouter } from "next/navigation";
 import Marquee from "../ui/Marquee";
+import RepoMetrics from "../ui/RepoMetrics";
  
 export function Hero() {
   const router = useRouter();
@@ -80,9 +81,24 @@ export function Hero() {
             </button>
           </motion.div>
           
+          <motion.div
+            initial={{
+              opacity: 0,
+            }}
+            animate={{
+              opacity: 1,
+            }}
+            transition={{
+              duration: 0.3,
+              delay: 1,
+            }}
+            className="relative z-10 mt-8 flex flex-wrap items-center justify-center gap-4"
+          >
+            <RepoMetrics />
+          </motion.div>
+          
           <Marquee />
           <div className="p-17"></div>
-
           <motion.div
             initial={{
               opacity: 0,
