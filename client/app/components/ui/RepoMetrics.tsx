@@ -71,7 +71,7 @@ export default function RepoMetrics() {
             Views
           </a>
           <a
-            href={'https://github.com/ShawnN24/PortFlow'} rel="noopener noreferrer" target="_blank"
+            href={'https://github.com/ShawnN24/Github-Traffic-API'} rel="noopener noreferrer" target="_blank"
             style={{
               position: 'relative',
               display: 'block',
