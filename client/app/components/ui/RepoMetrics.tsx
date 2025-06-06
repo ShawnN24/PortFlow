@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 export default function RepoMetrics() {
-  const [viewCount, setViewCount] = useState<number | null>(null);
+  const [viewCount, setViewCount] = useState<number>(0);
   const [isViewsHovered, setViewsHovered] = useState(false);
   const [isViewsCountHovered, setViewsCountHovered] = useState(false);
 
@@ -18,7 +18,7 @@ export default function RepoMetrics() {
         setViewCount(data.total_views); // or data.total_uniques
       })
       .catch(() => {
-        setViewCount(null);
+        setViewCount(0);
       });
   }, []);
 
