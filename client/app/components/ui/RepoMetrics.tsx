@@ -7,6 +7,15 @@ export default function RepoMetrics() {
   const [followCount, setFollowCount] = useState<number>(0);
 
   useEffect(() => {
+    fetch("https://raw.githubusercontent.com/ShawnN24/Github-Traffic-API/refs/heads/cache/metrics.json")
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        setViewCount(data.PortFlow.traffic.total_views); // or data.total_uniques
+      })
+      .catch(() => {
+        setViewCount(0);
+      });
     fetch("https://github-traffic-api.onrender.com/traffic/PortFlow", {
       method: "GET",
       headers: {
